@@ -1,21 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --color-azul-tardis: #0B3D91;
+  --color-space-dark: #050816;
+  --color-space-light: #1E293B;
+  --color-galaxy: #7C3AED;
+  --color-star: #F8FAFC;
+}
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-html,
-body{
-  width: 100%;
-  overflow-x: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-}
-:root{
-  --primary: #FF5FA2;
-  --secondary: #FFD6E7;
-  --background: #FFF7FA;
-  --dark: #2D1B24;
-  --gray: #6B7280;
 }

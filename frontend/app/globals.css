@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-azul-tardis: #0B3D91;
+  --color-space-dark: #050816;
+  --color-space-light: #1E293B;
+  --color-galaxy: #7C3AED;
+  --color-star: #F8FAFC;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

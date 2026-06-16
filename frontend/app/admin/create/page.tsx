@@ -1,12 +1,59 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function CreatePostPage() {
   const [titulo, setTitulo] = useState("");
   const [imagem, setImagem] = useState("");
   const [conteudo, setConteudo] = useState("");
   const [erro, setErro] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const router = useRouter();
+
+  const handleSalvar = async () => {
+    if (!titulo.trim() || !conteudo.trim()) {
+      setErro("Preencha o título e o conteúdo.");
+      return;
+    }
+
+    setErro("");
+    setIsSubmitting(true);
+
+    const dadosParaEnvio = {
+      title: titulo,
+      content: conteudo,
+      imageUrl: imagem || undefined
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dadosParaEnvio),
+      });
+
+      const resultado = await response.json();
+
+      if (!response.ok) {
+        throw new Error(resultado.details || resultado.message || "Erro ao salvar no banco.");
+      }
+
+      alert("Post publicado com sucesso no MongoDB!");
+      
+      router.push("/admin");
+      router.refresh(); 
+
+    } catch (err: any) {
+      setErro(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
 
   return (
     <main className="bg-space-dark text-star p-8">
@@ -29,7 +76,7 @@ export default function CreatePostPage() {
               type="text"
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
-              placeholder="Digite o título do post"
+              placeholder="Digite o título do post (mínimo 5 caracteres)"
               className="w-full p-3 rounded-lg text-black bg-white"
             />
           </div>
@@ -58,7 +105,7 @@ export default function CreatePostPage() {
             <textarea
               value={conteudo}
               onChange={(e) => setConteudo(e.target.value)}
-              placeholder="Escreva sua postagem..."
+              placeholder="Escreva sua postagem (mínimo 20 caracteres)..."
               className="w-full p-3 rounded-lg text-black bg-white h-64 resize-none"
             />
           </div>
@@ -72,31 +119,14 @@ export default function CreatePostPage() {
 
           {/* Botão */}
           <button
-            onClick={() => {
-
-             if (!titulo.trim() || !conteudo.trim()) {
-              setErro("Preencha o título e o conteúdo.");
-              return;
-            }
-
-            setErro("");
-
-            console.log({
-              titulo,
-              imagem,
-              conteudo,
-            });
-
-       }}
-      className="w-full bg-galaxy py-3 rounded-lg font-bold hover:opacity-80"
-    >
-      Salvar Postagem
-      </button>
-
+            onClick={handleSalvar}
+            disabled={isSubmitting}
+            className="w-full bg-galaxy py-3 rounded-lg font-bold hover:opacity-80"
+            >
+              {isSubmitting ? "Enviando para a TARDIS..." : "Salvar Postagem"}
+          </button>
         </div>
-
       </div>
-
     </main>
   );
 }

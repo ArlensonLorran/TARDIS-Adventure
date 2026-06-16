@@ -1,22 +1,17 @@
-const posts = [
-  {
-    id: 1,
-    title: "A TARDIS",
-    date: "02/06/2026",
-  },
-  {
-    id: 2,
-    title: "Viagens Temporais",
-    date: "01/06/2026",
-  },
-  {
-    id: 3,
-    title: "Buracos Negros",
-    date: "28/05/2026",
-  },
-];
-
-export default function AdminPage() {
+async function getPosts() {
+  try {
+    const res = await fetch('http://localhost:5000/api/posts', { cache: 'no-store' });     
+    if (!res.ok) {
+      throw new Error('Falha ao buscar posts do backend');
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Erro na integração do Admin:", error);
+    return [];
+  }
+}
+export default async function AdminPage() {
+  const posts = await getPosts();
   return (
     <main className="min-h-screen bg-space-dark text-star p-8">
 
@@ -40,14 +35,14 @@ export default function AdminPage() {
 
           <tbody>
 
-            {posts.map((post) => (
+            {posts.map((post: any) => (
               <tr
-                key={post.id}
+                key={post._id}
                 className="border-b border-gray-700"
               >
                 <td className="p-4">{post.title}</td>
 
-                <td className="p-4">{post.date}</td>
+                <td className="p-4">{post.createdAt}</td>
 
                 <td className="p-4 text-center">
 

@@ -11,6 +11,24 @@ router.get("/", async (req, res) => {
     }
 })
 
+router.get("/search", async (req, res) => {
+    try {
+        const query = req.query.q;
+        if (!query) {
+            return res.status(200).json([]);
+        }
+        const postsFound = await Post.find({
+            $or: [
+                { title: { $regex: query, $options: "i" } },
+                { content: { $regex: query, $options: "i"} }
+            ]
+        }).sort({ createdAt: -1 });
+        res.status(200).json(postsFound);
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao buscar posts", details: error.message });
+    }
+});
+
 router.get("/:id", async (req, res) => {
     try {
         const idPost = req.params.id;

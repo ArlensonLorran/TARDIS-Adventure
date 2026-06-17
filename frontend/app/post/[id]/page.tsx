@@ -1,10 +1,11 @@
 // frontend/app/post/[id]/page.tsx
 import Link from "next/link"; 
 import { notFound } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 interface Post {
   _id: string;
-  title: string;
+  titles: string;
   content: string;
   imageUrl?: string;
   createdAt: string;

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import DeleteButton from "@/components/DeleteButton";
+export const dynamic = "force-dynamic";
 
 interface Post {
   _id: string;

@@ -1,6 +1,7 @@
 // frontend/app/page.tsx
 import Link from "next/link";
 import PostCard from "@/components/PostCard";
+export const dynamic = "force-dynamic";
 
 interface Post {
   _id: string;

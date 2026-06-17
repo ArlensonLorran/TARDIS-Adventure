@@ -54,7 +54,7 @@ export default async function Home() {
             {/* POST DE DESTAQUE */}
             <div className="w-full">
               <h2 className="text-xs font-bold uppercase tracking-widest text-azul-tardis mb-4">
-                // Transmissão Recente
+                // Transmissão Recentee
               </h2>
               
               {postDestaque ? (

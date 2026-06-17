@@ -19,25 +19,31 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
   // Se o modal não estiver aberto, não renderiza nada na tela
-  if (!isOpen) return null;
-
+  if (!isOpen) return null; 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErro("");
     setIsSubmitting(false);
 
     try {
-      setIsSubmitting(true);
-
-      const res = await fetch(`${baseUrl}/api/auth/login`, {
+    setIsSubmitting(true);
+    const res = await fetch(`${baseUrl}/api/auth/login`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
-      });
+    });
 
-      const dados = await res.json();
+    // --- DEBBUGGER ---
+    if (!res.ok) {
+        const text = await res.text();
+        console.log("Resposta bruta do servidor:", text);
+        throw new Error(`Erro ${res.status}: ${text.substring(0, 50)}...`);
+    }
+    // -----------------
+
+    const dados = await res.json();
+    alert("Sucesso!");
+      
 
       if (!res.ok) {
         throw new Error(dados.message || "Falha na autenticação temporal.");

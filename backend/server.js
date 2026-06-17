@@ -13,9 +13,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.use("/api/auth", require("./routes/auth"));
 app.use(express.json());
 app.use("/api/posts", postRoutes);
-app.use("/api/auth", require("./routes/auth"));
 
 // pegando a connection string do arquivo .env
 const mongoUri = process.env.MONGO_URI;

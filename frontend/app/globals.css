@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* No Tailwind v4, as variáveis definidas aqui já se tornam classes utilitárias */
   --color-azul-tardis: #0B3D91;
   --color-space-dark: #050816;
   --color-space-light: #1E293B;
@@ -8,13 +9,11 @@
   --color-star: #F8FAFC;
 }
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html,
-body {
-  min-height: 100vh;
-  background-color: #050816;
+/* Remova o reset '*' manual, o Tailwind já cuida disso (Preflight) */
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Isso é o que evita o corte lateral */
+  background-color: var(--color-space-dark);
+  color: var(--color-star);
 }

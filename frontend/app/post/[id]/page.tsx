@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 interface Post {
   _id: string;
-  titles: string;
+  title: string;
   content: string;
   imageUrl?: string;
   createdAt: string;

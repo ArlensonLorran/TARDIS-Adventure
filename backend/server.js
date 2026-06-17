@@ -15,6 +15,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use("/api/posts", postRoutes);
+app.use("/api/auth", require("./routes/auth"));
 
 // pegando a connection string do arquivo .env
 const mongoUri = process.env.MONGO_URI;

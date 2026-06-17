@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { X, Lock, User } from "lucide-react";
 
 interface LoginModalProps {
@@ -11,15 +12,50 @@ interface LoginModalProps {
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [erro, setErro] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const router = useRouter();
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
   // Se o modal não estiver aberto, não renderiza nada na tela
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Aqui no futuro entrará a integração com o seu backend (POST /api/login)
-    console.log("Tentativa de login com:", { username, password });
-    alert("Circuito de autenticação em desenvolvimento!");
+    setErro("");
+    setIsSubmitting(false);
+
+    try {
+      setIsSubmitting(true);
+
+      const res = await fetch(`${baseUrl}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const dados = await res.json();
+
+      if (!res.ok) {
+        throw new Error(dados.message || "Falha na autenticação temporal.");
+      }
+
+      // Sucesso! Fecha o modal, avisa o usuário e manda para o painel admin
+      alert(dados.message || "Acesso autorizado na TARDIS!");
+      onClose();
+      
+      router.push("/admin");
+      router.refresh();
+
+    } catch (error: any) {
+      console.error("Erro ao autenticar:", error);
+      setErro(error.message || "Erro de conexão com o terminal central.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -42,7 +78,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
             </div>
             <button 
               onClick={onClose}
-              className="text-slate-400 hover:text-galaxy dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-space-dark transition"
+              disabled={isSubmitting}
+              className="text-slate-400 hover:text-galaxy dark:hover:text-white p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-space-dark transition disabled:opacity-50"
             >
               <X size={20} />
             </button>
@@ -59,9 +96,10 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                   type="text"
                   placeholder="Nome do Doutor ou Admin"
                   required
+                  disabled={isSubmitting}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-space-dark p-3 pl-10 rounded-xl border border-slate-200 dark:border-gray-800 focus:border-galaxy dark:focus:border-galaxy outline-none transition text-sm"
+                  className="w-full bg-slate-50 dark:bg-space-dark p-3 pl-10 rounded-xl border border-slate-200 dark:border-gray-800 focus:border-galaxy dark:focus:border-galaxy outline-none transition text-sm disabled:opacity-60"
                 />
                 <User size={16} className="absolute left-3.5 top-3.5 text-slate-400" />
               </div>
@@ -75,29 +113,39 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                   type="password"
                   placeholder="••••••••"
                   required
+                  disabled={isSubmitting}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-space-dark p-3 pl-10 rounded-xl border border-slate-200 dark:border-gray-800 focus:border-galaxy dark:focus:border-galaxy outline-none transition text-sm"
+                  className="w-full bg-slate-50 dark:bg-space-dark p-3 pl-10 rounded-xl border border-slate-200 dark:border-gray-800 focus:border-galaxy dark:focus:border-galaxy outline-none transition text-sm disabled:opacity-60"
                 />
                 <Lock size={16} className="absolute left-3.5 top-3.5 text-slate-400" />
               </div>
             </div>
+
+            {/* Mensagem de Erro Dinâmica */}
+            {erro && (
+              <div className="bg-red-500/10 border border-red-500 text-red-500 dark:text-red-400 p-3 rounded-xl text-xs font-medium font-mono">
+                ⚠️ {erro}
+              </div>
+            )}
 
             {/* Botões de Ação */}
             <div className="flex gap-3 mt-4 pt-4 border-t border-slate-100 dark:border-gray-800">
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 py-3 text-sm font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-space-dark dark:hover:bg-black text-slate-700 dark:text-white transition"
+                disabled={isSubmitting}
+                className="flex-1 py-3 text-sm font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-space-dark dark:hover:bg-black text-slate-700 dark:text-white transition disabled:opacity-50"
               >
                 Cancelar
               </button>
               
               <button
                 type="submit"
-                className="flex-1 py-3 text-sm font-semibold rounded-xl bg-galaxy hover:opacity-90 text-white shadow-lg shadow-galaxy/20 transition"
+                disabled={isSubmitting}
+                className="flex-1 py-3 text-sm font-semibold rounded-xl bg-galaxy hover:opacity-90 text-white shadow-lg shadow-galaxy/20 transition disabled:opacity-50"
               >
-                Iniciar Sessão
+                {isSubmitting ? "Autenticando..." : "Iniciar Sessão"}
               </button>
             </div>
 

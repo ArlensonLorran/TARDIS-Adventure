@@ -59,8 +59,8 @@ export default async function AdminPage() {
                   <td className="p-5 text-center flex justify-center gap-4">
                     <Link 
                       href={`/admin/edit/${post._id}`} 
-                        className="bg-azul-tardis hover:bg-blue-700 transition px-6 py-3 rounded-xl font-bold shadow-lg">
-                       ✏️ Editar
+                      className="bg-azul-tardis hover:bg-blue-700 transition px-6 py-3 rounded-xl font-bold shadow-lg">
+                      Editar
                     </Link>
                     <DeleteButton id={post._id} />
                   </td>

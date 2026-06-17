@@ -42,9 +42,9 @@ export default function DeleteButton({ id }: { id: string }) {
     <button 
       onClick={handleDelete}
       disabled={isDeleting}
-      className="text-red-400 hover:text-red-300 disabled:opacity-50 transition p-2 hover:bg-gray-800 rounded-lg flex items-center gap-1"
+      className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white transition px-6 py-3 rounded-xl font-bold shadow-lg flex items-center justify-center gap-1"
     >
-      {isDeleting ? "⏳ Sumindo..." : "🗑️ Excluir"}
+      {isDeleting ? "⏳ Sumindo..." : "Excluir"}
     </button>
   );
 }

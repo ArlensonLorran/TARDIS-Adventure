@@ -71,17 +71,24 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+const mongoose = require("mongoose");
+
 router.delete("/:id", async (req, res) => {
     try {
         const idPost = req.params.id;
-        postDeleted = await Post.findByIdAndDelete(idPost);
+        if (!mongoose.Types.ObjectId.isValid(idPost)) {
+            return res.status(400).json({ message: "Formato de ID inválido" });
+        }
+        const postDeleted = await Post.findByIdAndDelete(idPost);
+
         if (!postDeleted) {
             return res.status(404).json({ message: "Post não encontrado para exclusão" });
         }
-        res.status(200).json({ message: "Post excluído" });
+
+        return res.status(200).json({ message: "Post excluído com sucesso do banco de dados!" });
     
     } catch (error) {
-        res.status(500).json({ message: "Erro ao excluir post", details: error.message });
+        return res.status(500).json({ message: "Erro ao excluir post", details: error.message });
     }
 });
 

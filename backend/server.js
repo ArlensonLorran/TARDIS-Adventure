@@ -8,7 +8,11 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const postRoutes = require("./routes/postRoutes");
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://tardis-adventure-nh7t.vercel.app/',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use("/api/posts", postRoutes);
 

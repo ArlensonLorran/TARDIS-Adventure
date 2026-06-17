@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* No Tailwind v4, as variáveis definidas aqui já se tornam classes utilitárias */
   --color-azul-tardis: #0B3D91;
   --color-space-dark: #050816;
   --color-space-light: #1E293B;
@@ -9,11 +8,28 @@
   --color-star: #F8FAFC;
 }
 
-/* Remova o reset '*' manual, o Tailwind já cuida disso (Preflight) */
+/* Garante que o Tailwind v4 entenda os seletores dark: nas classes utilitárias */
+@custom-variant dark (.dark &);
 
+/* --- FLUXO DE COR GLOBAL (Muda dinamicamente) --- */
+
+/* 1. Quando estiver no modo CLARO (Padrão) */
+:root {
+  --background-site: #F8FAFC;
+  --texto-site: #050816;
+}
+
+/* 2. Quando estiver no modo ESCURO (Classe .dark ativa no html) */
+.dark {
+  --background-site: var(--color-space-dark);
+  --texto-site: var(--color-star);
+}
+
+/* Aplica as variáveis dinâmicas no corpo do site */
 html, body {
   width: 100%;
-  overflow-x: hidden; /* Isso é o que evita o corte lateral */
-  background-color: var(--color-space-dark);
-  color: var(--color-star);
+  overflow-x: hidden;
+  background-color: var(--background-site);
+  color: var(--texto-site);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

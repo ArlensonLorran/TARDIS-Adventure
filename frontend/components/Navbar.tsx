@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import { Search, Moon, Sun, LayoutDashboard, Home, X } from "lucide-react"; // Instale se necessário
 
@@ -40,6 +41,12 @@ export default function Navbar() {
                 <h3 className="text-xl font-bold text-white">Menu</h3>
                 <button onClick={() => setMenuOpen(false)} className="text-white hover:text-galaxy"><X /></button>
               </div>
+              <div className="flex flex-col gap-2">
+                
+  
+                {/* AQUI ENTRA A TROCA DE TEMA */}
+                <ThemeToggle />
+            </div>
 
               {/* Busca */}
               <div className="relative">
@@ -61,14 +68,7 @@ export default function Navbar() {
                   <LayoutDashboard size={20} /> Área Administrativa
                 </Link>
               </nav>
-
-              {/* Troca de Tema (Botão Placeholder) */}
-              <button 
-                className="w-full flex items-center justify-center gap-2 p-3 bg-galaxy text-white rounded-lg hover:opacity-90 transition"
-                onClick={() => alert("Lógica de tema aqui!")}
-              >
-                Alternar Tema
-              </button>
+              
             </div>
           </aside>
         </>

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 export default function CreatePostPage() {
   const [titulo, setTitulo] = useState("");
   const [imagem, setImagem] = useState("");
+  const [descricao, setDescricao] = useState("");
   const [conteudo, setConteudo] = useState("");
   const [erro, setErro] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,6 +24,7 @@ export default function CreatePostPage() {
 
     const dadosParaEnvio = {
       title: titulo,
+      description: descricao,
       content: conteudo,
       imageUrl: imagem || undefined
     };
@@ -92,6 +94,21 @@ export default function CreatePostPage() {
               value={imagem}
               onChange={(e) => setImagem(e.target.value)}
               placeholder="https://..."
+              className="w-full p-3 rounded-lg text-black bg-white"
+            />
+          </div>
+
+          {/* Descrição */}
+          <div>
+            <label className="block mb-2">
+              Descrição
+            </label>
+
+            <input
+              type="text"
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+              placeholder="Digite uma descrição para o post (mínimo 10 caracteres)"
               className="w-full p-3 rounded-lg text-black bg-white"
             />
           </div>

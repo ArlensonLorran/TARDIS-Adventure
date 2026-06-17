@@ -20,7 +20,8 @@ router.get("/search", async (req, res) => {
         const postsFound = await Post.find({
             $or: [
                 { title: { $regex: query, $options: "i" } },
-                { content: { $regex: query, $options: "i"} }
+                { content: { $regex: query, $options: "i"} },
+                { description: { $regex: query, $options: "i" } }
             ]
         }).sort({ createdAt: -1 });
         res.status(200).json(postsFound);
@@ -46,6 +47,7 @@ router.post("/", async (req, res) => {
         const novoPost = new Post({
             title: req.body.title,
             content: req.body.content,
+            description: req.body.description,
             imageUrl: req.body.imageUrl
         });
         const postSalvo = await novoPost.save();

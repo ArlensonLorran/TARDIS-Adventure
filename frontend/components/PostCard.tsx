@@ -4,6 +4,7 @@ import Link from "next/link";
 interface Post {
   _id: string;
   title: string;
+  description: string;
   content: string;
   imageUrl?: string;
 }
@@ -13,11 +14,6 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post }: PostCardProps) {
-  // Como o card usa um resumo, vamos pegar os primeiros 120 caracteres do 'content'
-  const shortDescription = post.content.length > 120 
-    ? post.content.substring(0, 120) + "..." 
-    : post.content;
-
   return (
     <article className="bg-space-light p-6 rounded-2xl shadow-lg flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1">
       <div>
@@ -36,9 +32,9 @@ export default function PostCard({ post }: PostCardProps) {
           {post.title}
         </h3>
 
-        {/* Resumo do Conteúdo */}
+        {/* Descrição do Post */}
         <p className="text-gray-300 text-sm leading-relaxed">
-          {shortDescription}
+          {post.description}
         </p>
       </div>
 

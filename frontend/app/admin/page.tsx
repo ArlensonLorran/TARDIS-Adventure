@@ -57,9 +57,11 @@ export default async function AdminPage() {
                     {new Date(post.createdAt).toLocaleDateString('pt-BR')}
                   </td>
                   <td className="p-5 text-center flex justify-center gap-4">
-                    <button className="text-yellow-400 hover:text-yellow-300 transition p-2 hover:bg-gray-800 rounded-lg">
-                      ✏️ Editar
-                    </button>
+                    <Link 
+                      href={`/admin/edit/${post._id}`} 
+                        className="bg-azul-tardis hover:bg-blue-700 transition px-6 py-3 rounded-xl font-bold shadow-lg">
+                       ✏️ Editar
+                    </Link>
                     <DeleteButton id={post._id} />
                   </td>
                 </tr>

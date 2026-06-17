@@ -8,28 +8,26 @@
   --color-star: #F8FAFC;
 }
 
-/* Garante que o Tailwind v4 entenda os seletores dark: nas classes utilitárias */
+/* Força o Tailwind v4 a mapear as classes utilitárias com o prefixo dark: */
 @custom-variant dark (.dark &);
 
-/* --- FLUXO DE COR GLOBAL (Muda dinamicamente) --- */
+/* --- FOLHA DE ESTILOS BASE DINÂMICA --- */
 
-/* 1. Quando estiver no modo CLARO (Padrão) */
-:root {
-  --background-site: #F8FAFC;
-  --texto-site: #050816;
+/* 1. CONFIGURAÇÃO PADRÃO (Tema Claro) */
+html {
+  background-color: #F8FAFC; /* Fundo claro (slate-50) */
+  color: #0F172A;           /* Letras escuras (slate-900) */
 }
 
-/* 2. Quando estiver no modo ESCURO (Classe .dark ativa no html) */
-.dark {
-  --background-site: var(--color-space-dark);
-  --texto-site: var(--color-star);
-}
-
-/* Aplica as variáveis dinâmicas no corpo do site */
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-  background-color: var(--background-site);
-  color: var(--texto-site);
+body {
+  background-color: #F8FAFC;
+  color: #0F172A;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 2. CONFIGURAÇÃO QUANDO CLASSE .dark ESTIVER ATIVA (Tema Escuro) */
+html.dark, 
+html.dark body {
+  background-color: var(--color-space-dark); /* Seu fundo TARDIS */
+  color: var(--color-star);                  /* Suas letras claras */
 }

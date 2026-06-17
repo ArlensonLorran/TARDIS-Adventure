@@ -3,11 +3,15 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
-import { Search, Moon, Sun, LayoutDashboard, Home, X } from "lucide-react"; // Instale se necessário
+import { Search, LayoutDashboard, Home, X } from "lucide-react"; 
+import LoginModal from "./LoginModal";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
+  
+  // Estado para controlar se o modal de login está visível ou não
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
     <>
@@ -41,12 +45,11 @@ export default function Navbar() {
                 <h3 className="text-xl font-bold text-white">Menu</h3>
                 <button onClick={() => setMenuOpen(false)} className="text-white hover:text-galaxy"><X /></button>
               </div>
+              
               <div className="flex flex-col gap-2">
-                
-  
                 {/* AQUI ENTRA A TROCA DE TEMA */}
                 <ThemeToggle />
-            </div>
+              </div>
 
               {/* Busca */}
               <div className="relative">
@@ -61,18 +64,34 @@ export default function Navbar() {
 
               {/* Links */}
               <nav className="flex flex-col gap-2">
-                <Link href="/" className="flex items-center gap-3 p-3 text-white hover:bg-azul-tardis rounded-lg transition">
+                <Link 
+                  href="/" 
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 p-3 text-white hover:bg-azul-tardis rounded-lg transition"
+                >
                   <Home size={20} /> Início
                 </Link>
-                <Link href="/admin" className="flex items-center gap-3 p-3 text-white hover:bg-azul-tardis rounded-lg transition">
+                
+                {/* Mudamos de <Link> para <button> para interceptar o clique e abrir o Modal */}
+                <button 
+                  onClick={() => {
+                    setMenuOpen(false);    // Fecha o menu lateral para dar espaço
+                    setIsLoginOpen(true);  // Abre o modal de login no centro da tela
+                  }}
+                  className="flex items-center gap-3 p-3 text-white hover:bg-azul-tardis rounded-lg transition text-left w-full"
+                >
                   <LayoutDashboard size={20} /> Área Administrativa
-                </Link>
+                </button>
               </nav>
               
             </div>
           </aside>
         </>
       )}
+
+      {/* RENDERIZAÇÃO DO MODAL DE LOGIN */}
+      {/* Ele fica monitorando o estado 'isLoginOpen'. Quando for true, ele aparece na tela */}
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </>
   );
 }

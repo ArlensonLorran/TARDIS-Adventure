@@ -31,7 +31,7 @@ export default async function Home() {
   const postsRestantes = posts.slice(1);
 
   return (
-    <div className="min-h-screen w-full bg-space-dark text-white p-4 sm:p-6 md:p-10 overflow-x-hidden">
+    <div className="min-h-screen w-full bg-space-dark p-4 sm:p-6 md:p-10 overflow-x-hidden">
       <div className="mx-auto">
         
         {/* TÍTULO PRINCIPAL */}

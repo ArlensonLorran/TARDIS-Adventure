@@ -32,7 +32,7 @@ export default function PostCard({ post }: PostCardProps) {
         </div>
 
         {/* Título do Post */}
-        <h3 className="text-2xl font-bold mb-3 text-white line-clamp-2">
+        <h3 className="text-2xl font-bold mb-3 line-clamp-2">
           {post.title}
         </h3>
 

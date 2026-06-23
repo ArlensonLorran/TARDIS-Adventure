@@ -42,6 +42,28 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ message: "Erro ao buscar post", details: error.message });
     }
 });
+
+router.post("/:id/comments", async (req, res) => {
+  try {
+    const { author, text } = req.body;
+    
+    const post = await Post.findById(req.params.id);
+    if (!post) return res.status(404).json({ message: "Comentário não encontrado." });
+
+    // Adiciona o novo comentário ao array
+    const novoComentario = { author, text };
+    post.comments.push(novoComentario);
+    
+    // Salva o post atualizado no banco
+    await post.save();
+
+    res.status(201).json(post.comments); // Retorna a lista atualizada
+  } catch (error) {
+    console.error("Erro ao salvar comentário:", error);
+    res.status(500).json({ message: "Erro ao processar o comentário." });
+  }
+});
+
 router.post("/", async (req, res) => {
     try {
         const novoPost = new Post({

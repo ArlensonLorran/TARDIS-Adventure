@@ -29,7 +29,7 @@ export default async function AdminPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
           <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Dashboard Administrativo</h1>
-          <p className="text-slate-500 dark:text-gray-400 text-sm">Gerencie as transmissões da linha do tempo.</p>
+          <p className="text-slate-500 dark:text-gray-400 text-sm">Delete, crie ou altere os posts.</p>
         </div>
         <Link 
           href="/admin/create" 

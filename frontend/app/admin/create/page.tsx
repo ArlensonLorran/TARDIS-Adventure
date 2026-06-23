@@ -44,7 +44,7 @@ export default function CreatePostPage() {
         throw new Error(resultado.details || resultado.message || "Erro ao salvar no banco.");
       }
 
-      alert("Post publicado com sucesso no MongoDB!");
+      alert("Post publicado com sucesso!");
       
       router.push("/admin");
       router.refresh(); 
@@ -56,13 +56,11 @@ export default function CreatePostPage() {
     }
   };
 
-
   return (
-    <main className="bg-space-dark text-star p-8">
+    <main className="min-h-screen bg-slate-50 dark:bg-space-dark text-slate-900 dark:text-white p-4 sm:p-8 transition-colors duration-300">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-space-light p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-gray-800 transition-colors duration-300">
 
-    <div className="w-full bg-space-light p-8 rounded-xl shadow-lg">
-
-        <h1 className="text-4xl font-bold mb-8">
+        <h1 className="text-3xl font-black tracking-tight mb-8 text-slate-900 dark:text-white">
           Nova Postagem
         </h1>
 
@@ -70,77 +68,73 @@ export default function CreatePostPage() {
 
           {/* Título */}
           <div>
-            <label className="block mb-2">
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300">
               Título
             </label>
-
             <input
               type="text"
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
               placeholder="Digite o título do post (mínimo 5 caracteres)"
-              className="w-full p-3 rounded-lg text-black bg-white"
+              className="w-full p-3 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-space-dark border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-slate-400 dark:focus:border-gray-600 transition text-sm"
             />
           </div>
 
           {/* Imagem */}
           <div>
-            <label className="block mb-2">
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300">
               URL da Imagem
             </label>
-
             <input
               type="text"
               value={imagem}
               onChange={(e) => setImagem(e.target.value)}
               placeholder="https://..."
-              className="w-full p-3 rounded-lg text-black bg-white"
+              className="w-full p-3 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-space-dark border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-slate-400 dark:focus:border-gray-600 transition text-sm"
             />
           </div>
 
           {/* Descrição */}
           <div>
-            <label className="block mb-2">
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300">
               Descrição
             </label>
-
             <input
               type="text"
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
               placeholder="Digite uma descrição para o post (mínimo 10 caracteres)"
-              className="w-full p-3 rounded-lg text-black bg-white"
+              className="w-full p-3 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-space-dark border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-slate-400 dark:focus:border-gray-600 transition text-sm"
             />
           </div>
 
           {/* Conteúdo */}
           <div>
-            <label className="block mb-2">
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300">
               Conteúdo
             </label>
-
             <textarea
               value={conteudo}
               onChange={(e) => setConteudo(e.target.value)}
               placeholder="Escreva sua postagem (mínimo 20 caracteres)..."
-              className="w-full p-3 rounded-lg text-black bg-white h-64 resize-none"
+              className="w-full p-3 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-space-dark border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-slate-400 dark:focus:border-gray-600 transition h-64 resize-none text-sm"
             />
           </div>
 
           {/* Mensagem de erro */}
           {erro && (
-            <div className="bg-red-500 text-white p-3 rounded-lg">
-             {erro}
+            <div className="bg-red-500 text-white p-4 rounded-xl text-sm font-medium shadow-md">
+              {erro}
             </div>
-        )}
+          )}
 
           {/* Botão */}
           <button
             onClick={handleSalvar}
             disabled={isSubmitting}
-            className="w-full bg-galaxy py-3 rounded-lg font-bold hover:opacity-80"
-            >
-              {isSubmitting ? "Enviando para a TARDIS..." : "Salvar Postagem"}
+            className="w-full bg-azul-tardis text-white py-3.5 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 transition shadow-lg shadow-azul-tardis/10 text-sm mt-4"
+          >
+            {isSubmitting ? "Publicando..." : "Salvar Postagem"}
           </button>
         </div>
       </div>

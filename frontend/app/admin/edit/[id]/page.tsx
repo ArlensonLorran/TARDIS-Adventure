@@ -8,13 +8,12 @@ interface EditPostPageProps {
 }
 
 export default function EditPostPage({ params }: EditPostPageProps) {
-  // Desembrulha os parâmetros da rota de forma assíncrona exigida pelo Next.js 15
   const resolvedParams = use(params);
   const id = resolvedParams.id;
 
   const [titulo, setTitulo] = useState("");
   const [imagem, setImagem] = useState("");
-  const [descricao, setDescricao] = useState(""); // ✨ Adicionado o estado da descrição
+  const [descricao, setDescricao] = useState(""); 
   const [conteudo, setConteudo] = useState("");
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(true);
@@ -23,17 +22,16 @@ export default function EditPostPage({ params }: EditPostPageProps) {
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
-  // Carrega os dados atuais do post para preencher os campos automaticamente
   useEffect(() => {
     async function carregarPost() {
       try {
         const res = await fetch(`${baseUrl}/api/posts/${id}`);
-        if (!res.ok) throw new Error("Não foi possível localizar este registro na TARDIS.");
+        if (!res.ok) throw new Error("Não foi possível localizar este registro.");
         const post = await res.json();
         
         setTitulo(post.title);
         setImagem(post.imageUrl || "");
-        setDescricao(post.description || ""); // ✨ Carrega a descrição do banco
+        setDescricao(post.description || ""); 
         setConteudo(post.content);
       } catch (err: any) {
         setErro(err.message);
@@ -55,7 +53,7 @@ export default function EditPostPage({ params }: EditPostPageProps) {
 
     const dadosAtualizados = {
       title: titulo,
-      description: descricao, // ✨ Enviando a descrição atualizada
+      description: descricao, 
       content: conteudo,
       imageUrl: imagem || undefined
     };
@@ -75,7 +73,7 @@ export default function EditPostPage({ params }: EditPostPageProps) {
         throw new Error(resultado.details || resultado.message || "Erro ao atualizar no banco.");
       }
 
-      alert("Post atualizado com sucesso no MongoDB!");
+      alert("Post atualizado com sucesso!");
       router.push("/admin");
       router.refresh(); 
 
@@ -88,24 +86,24 @@ export default function EditPostPage({ params }: EditPostPageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-space-dark text-white flex items-center justify-center font-mono">
-        ⏳ Sintonizando frequências da TARDIS...
+      <div className="min-h-screen bg-slate-50 dark:bg-space-dark text-slate-600 dark:text-gray-400 flex items-center justify-center text-sm font-medium transition-colors duration-300">
+        <span className="animate-pulse">⏳ Carregando dados do artigo...</span>
       </div>
     );
   }
 
   return (
-    <main className="bg-space-dark text-white p-8">
-      <div className="w-full bg-space-light p-8 rounded-xl shadow-lg">
+    <main className="min-h-screen bg-slate-50 dark:bg-space-dark text-slate-900 dark:text-white p-4 sm:p-8 transition-colors duration-300">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-space-light p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-gray-800 transition-colors duration-300">
         
-        <h1 className="text-4xl font-bold mb-8">
+        <h1 className="text-3xl font-black tracking-tight mb-8 text-slate-900 dark:text-white">
           Editar Postagem
         </h1>
 
         <div className="space-y-6">
           {/* Título */}
           <div>
-            <label className="block mb-2">
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300">
               Título
             </label>
             <input
@@ -113,13 +111,13 @@ export default function EditPostPage({ params }: EditPostPageProps) {
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
               placeholder="Digite o título do post (mínimo 5 caracteres)"
-              className="w-full p-3 rounded-lg text-black bg-white focus:outline-none"
+              className="w-full p-3 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-space-dark border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-slate-400 dark:focus:border-gray-600 transition text-sm"
             />
           </div>
 
           {/* Imagem */}
           <div>
-            <label className="block mb-2">
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300">
               URL da Imagem
             </label>
             <input
@@ -127,13 +125,13 @@ export default function EditPostPage({ params }: EditPostPageProps) {
               value={imagem}
               onChange={(e) => setImagem(e.target.value)}
               placeholder="https://..."
-              className="w-full p-3 rounded-lg text-black bg-white focus:outline-none"
+              className="w-full p-3 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-space-dark border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-slate-400 dark:focus:border-gray-600 transition text-sm"
             />
           </div>
 
           {/* Descrição */}
           <div>
-            <label className="block mb-2">
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300">
               Descrição
             </label>
             <input
@@ -141,44 +139,46 @@ export default function EditPostPage({ params }: EditPostPageProps) {
               value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
               placeholder="Digite uma descrição para o post (mínimo 10 caracteres)"
-              className="w-full p-3 rounded-lg text-black bg-white focus:outline-none"
+              className="w-full p-3 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-space-dark border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-slate-400 dark:focus:border-gray-600 transition text-sm"
             />
           </div>
 
           {/* Conteúdo */}
           <div>
-            <label className="block mb-2">
+            <label className="block mb-2 text-sm font-semibold text-slate-700 dark:text-gray-300">
               Conteúdo
             </label>
             <textarea
               value={conteudo}
               onChange={(e) => setConteudo(e.target.value)}
               placeholder="Escreva sua postagem (mínimo 20 caracteres)..."
-              className="w-full p-3 rounded-lg text-black bg-white h-64 resize-none focus:outline-none"
+              className="w-full p-3 rounded-xl text-slate-900 dark:text-white bg-slate-50 dark:bg-space-dark border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-slate-400 dark:focus:border-gray-600 transition h-64 resize-none text-sm"
             />
           </div>
 
           {/* Mensagem de erro */}
           {erro && (
-            <div className="bg-red-500 text-white p-3 rounded-lg">
+            <div className="bg-red-500 text-white p-4 rounded-xl text-sm font-medium shadow-md">
               {erro}
             </div>
           )}
 
           {/* Botões de Ação */}
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 pt-2">
             <button
+              type="button"
               onClick={() => router.push("/admin")}
-              className="w-1/3 bg-gray-700 py-3 rounded-lg font-bold hover:opacity-80 transition"
+              className="w-full sm:w-1/3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 py-3.5 rounded-xl font-bold hover:opacity-90 transition text-sm order-2 sm:order-1"
             >
               Cancelar
             </button>
             <button
+              type="button"
               onClick={handleEditar}
               disabled={isSubmitting}
-              className="w-2/3 bg-galaxy py-3 rounded-lg font-bold hover:opacity-80 transition"
+              className="w-full sm:w-2/3 bg-azul-tardis text-white py-3.5 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 transition shadow-lg shadow-azul-tardis/10 text-sm order-1 sm:order-2"
             >
-              {isSubmitting ? "Atualizando Matrix..." : "Salvar Alterações"}
+              {isSubmitting ? "Atualizando..." : "Salvar Alterações"}
             </button>
           </div>
         </div>

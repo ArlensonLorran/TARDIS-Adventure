@@ -56,11 +56,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-slate-900 dark:text-white">
             {query ? `Resultados para: "${query}"` : "Linha do Tempo"}
           </h1>
-          <p className="text-slate-500 dark:text-gray-400 text-sm md:text-base">
-            {query 
-              ? `Encontramos ${posts.length} conexões nos arquivos de dados.` 
-              : "Explore crônicas, mistérios e segredos através do tempo e do espaço."}
-          </p>
+         
         </div>
 
         {/* GRADE PRINCIPAL */}
@@ -134,13 +130,13 @@ export default async function Home({ searchParams }: HomeProps) {
               method="GET"
               className="bg-white dark:bg-space-light p-5 rounded-2xl shadow-lg border border-slate-200 dark:border-transparent w-full"
             >
-              <h3 className="font-bold text-lg mb-3 text-slate-900 dark:text-white">Scanner de Dados</h3>
+              <h3 className="font-bold text-lg mb-3 text-slate-900 dark:text-white">Proucurar posts</h3>
               <div className="relative w-full">
                 <input
                   type="text"
                   name="q"
                   defaultValue={query || ""}
-                  placeholder="Pesquisar arquivos da TARDIS..."
+                  placeholder="Encontre post de sua preferência..."
                   className="w-full bg-slate-50 dark:bg-space-dark text-slate-900 dark:text-white rounded-xl pl-4 pr-10 py-3 text-sm border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-azul-tardis transition"
                 />
                 <button type="submit" className="absolute right-3 top-3.5 text-slate-400 hover:text-azul-tardis transition text-sm">
@@ -149,14 +145,6 @@ export default async function Home({ searchParams }: HomeProps) {
               </div>
             </form>
 
-            {/* BOX INFORMATIVO */}
-            <div className="bg-gradient-to-b from-white to-slate-50 dark:from-space-light dark:to-transparent p-6 rounded-2xl border border-slate-200 dark:border-gray-800 w-full text-slate-900 dark:text-white">
-              <div className="text-2xl mb-2">🌀</div>
-              <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-white">Status do Sistema</h3>
-              <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">
-                Conexão com o banco de dados estabelecida. Monitorando flutuações temporais através do servidor. Lembre-se: <em>"Don't Blink"</em>.
-              </p>
-            </div>
           </aside>
 
         </div>

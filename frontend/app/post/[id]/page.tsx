@@ -56,7 +56,7 @@ export default async function PostPage({ params }: PostPageProps) {
             className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-gray-400 hover:text-azul-tardis dark:hover:text-blue-400 transition group"
           >
             <span className="transition-transform group-hover:-translate-x-1">←</span> 
-            Voltar para a Linha do Tempoo
+            Voltar para o Feed
           </Link>
         </div>
 

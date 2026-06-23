@@ -78,7 +78,6 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           <div className="flex justify-between items-center border-b border-slate-100 dark:border-gray-800 pb-4">
             <div>
               <h3 className="text-xl font-bold font-sans">Acesso ao Sistema</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-1">Insira suas credenciais temporais</p>
             </div>
             <button 
               onClick={onClose}

@@ -63,14 +63,14 @@ export default function CommentsSection({ postId, initialComments }: CommentsSec
       {/* FORMULÁRIO */}
       {/* Ajustado fundo do formulário para um cinza leve no modo claro */}
       <form onSubmit={handleSubmit} className="mb-8 bg-slate-50 dark:bg-space-dark/40 p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-gray-800 w-full">
-        <h3 className="text-xs font-semibold text-slate-500 dark:text-gray-400 mb-4">// Deixe sua transmissão no Vortex</h3>
+        <h3 className="text-xs font-semibold text-slate-500 dark:text-gray-400 mb-4">// Diga-nos sua opinião sobre o post</h3>
         <div className="space-y-4">
           <input 
             type="text" 
             required
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
-            placeholder="Seu nome ou codinome espacial" 
+            placeholder="Insira seu nome ou apelido .." 
             disabled={isSubmitting}
             // Inputs agora são brancos no modo claro e escuros no modo escuro
             className="w-full bg-white dark:bg-space-dark text-slate-900 dark:text-white rounded-xl p-3 text-sm border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-azul-tardis transition disabled:opacity-50" 

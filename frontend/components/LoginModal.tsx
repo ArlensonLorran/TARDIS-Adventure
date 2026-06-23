@@ -20,8 +20,6 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   if (!isOpen) return null;
 
-  // Se o modal não estiver aberto, não renderiza nada na tela
-  if (!isOpen) return null; 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErro("");
@@ -44,7 +42,6 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
     // -----------------
 
     const dados = await res.json();
-    alert("Sucesso!");
       
 
       if (!res.ok) {

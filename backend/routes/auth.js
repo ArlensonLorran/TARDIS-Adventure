@@ -21,6 +21,7 @@ router.post("/login", (req, res) => {
         }
 
     } catch (error) {
+        console.error("erro do backend:", error);
         return res.status(500).json({ message: "Erro no servidor de autenticação" });
     }
 });

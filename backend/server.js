@@ -10,7 +10,7 @@ const postRoutes = require("./routes/postRoutes");
 const adminRoutes = require("./routes/auth");
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://tardis-adventure-nh7t.vercel.app/'],
+  origin: "*",
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));

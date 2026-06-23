@@ -18,6 +18,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
+  if (!isOpen) return null;
+
   // Se o modal não estiver aberto, não renderiza nada na tela
   if (!isOpen) return null; 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,11 +48,10 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       
 
       if (!res.ok) {
-        throw new Error(dados.message || "Falha na autenticação temporal.");
+        throw new Error(dados.message);
       }
 
       // Sucesso! Fecha o modal, avisa o usuário e manda para o painel admin
-      alert(dados.message || "Acesso autorizado na TARDIS!");
       onClose();
       
       router.push("/admin");
@@ -58,7 +59,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
     } catch (error: any) {
       console.error("Erro ao autenticar:", error);
-      setErro(error.message || "Erro de conexão com o terminal central.");
+      setErro(error.message || "Erro de conexão.");
     } finally {
       setIsSubmitting(false);
     }
@@ -100,7 +101,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Nome do Doutor ou Admin"
+                  placeholder="Nome de Usuário"
                   required
                   disabled={isSubmitting}
                   value={username}

@@ -15,25 +15,30 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   return (
-    <article className="bg-space-light p-6 rounded-2xl shadow-lg flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1">
+    // Ajustado: bg-white no claro, bg-space-light no escuro. Adicionada borda sutil no claro.
+    <article className="bg-white dark:bg-space-light p-6 rounded-2xl shadow-lg border border-slate-100 dark:border-transparent flex flex-col justify-between transition-all duration-300 hover:-translate-y-1">
       <div>
         {/* Banner do Card: Agora renderiza a imagem real do banco (imageUrl) */}
         <div className="h-40 rounded-xl mb-4 overflow-hidden bg-azul-tardis">
-          <img 
-            src={post.imageUrl} 
-            alt={`Capa do post: ${post.title}`}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+          {post.imageUrl && (
+            <img 
+              src={post.imageUrl} 
+              alt={`Capa do post: ${post.title}`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          )}
         </div>
 
         {/* Título do Post */}
-        <h3 className="text-2xl font-bold mb-3 line-clamp-2">
+        {/* Ajustado: texto slate-900 no claro, branco no escuro */}
+        <h3 className="text-2xl font-bold mb-3 line-clamp-2 text-slate-900 dark:text-white">
           {post.title}
         </h3>
 
         {/* Descrição do Post */}
-        <p className="text-gray-300 text-sm leading-relaxed">
+        {/* Ajustado: texto slate-600 no claro, gray-300 no escuro */}
+        <p className="text-slate-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
           {post.description}
         </p>
       </div>
@@ -42,7 +47,7 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="mt-6">
         <Link
           href={`/post/${post._id}`}
-          className="inline-block bg-azul-tardis text-white px-4 py-2 rounded font-medium hover:bg-opacity-90 transition-colors"
+          className="inline-block bg-azul-tardis text-white px-4 py-2.5 rounded-xl font-medium hover:opacity-90 transition-opacity text-sm shadow-md shadow-azul-tardis/10"
         >
           Ler postagem
         </Link>

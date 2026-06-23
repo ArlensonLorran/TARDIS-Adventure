@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
-import { Search, LayoutDashboard, Home, X } from "lucide-react"; 
+import { Search, LayoutDashboard, Home, X } from "lucide-react";
 import LoginModal from "./LoginModal";
 
 export default function Navbar() {
@@ -29,24 +29,20 @@ export default function Navbar() {
     <>
       <header className="bg-azul-tardis w-full h-20 flex items-center justify-between px-6 sm:px-10 shadow-xl border-b border-blue-900 sticky top-0 z-50">
         <Link href="/" className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/10 flex items-center justify-center shadow-inner">
-            <img 
-               src="/images/image.png" 
-               alt="Logo do Blog" 
-               className="w-full h-full object-cover"
-              />
-            </div>
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-galaxy to-azul-tardis flex items-center justify-center text-xl">
+            🚀
+          </div>
           <div>
             <h2 className="font-bold text-xl sm:text-2xl text-white">Tardis Adventure</h2>
+            <p className="text-xs opacity-75 hidden sm:block font-mono">Blog de Aventuras no Tempo</p>
           </div>
         </Link>
 
-        {/* AJUSTADO: Agora renderiza o ícone Menu quando o painel estiver fechado */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="p-3 rounded-xl bg-space-light hover:bg-space-dark text-white border border-gray-700 transition-all flex items-center justify-center"
+          className="p-3 rounded-xl bg-space-light hover:bg-space-dark text-white border border-gray-700 transition-all"
         >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          {menuOpen ? <X size={24} /> : <span className="text-xl">⚙️</span>}
         </button>
       </header>
 

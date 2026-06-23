@@ -2,11 +2,13 @@
 import Link from "next/link"; 
 import { notFound } from "next/navigation";
 export const dynamic = "force-dynamic";
+import CommentsSection from "@/components/CommentsSection"
 
 interface Post {
   _id: string;
   title: string;
   content: string;
+  comments: [];
   description: string;
   imageUrl?: string;
   createdAt: string;
@@ -90,51 +92,10 @@ export default async function PostPage({ params }: PostPageProps) {
         </article>
 
         {/* SEÇÃO DE COMENTÁRIOS */}
-        <section className="mt-10 bg-space-light p-5 sm:p-8 rounded-3xl shadow-xl border border-gray-800/40 w-full">
-          <h2 className="text-xl sm:text-2xl font-bold mb-6 text-white border-b border-gray-800 pb-3">
-            💬 Comentários da Comunidade
-          </h2>
-          
-          <div className="mb-8 bg-space-dark/40 p-4 sm:p-6 rounded-2xl border border-gray-800 w-full">
-            <h3 className="text-xs font-semibold text-gray-400 mb-4">// Deixe sua transmissão no Vortex</h3>
-            <div className="space-y-4">
-              <input 
-                type="text" 
-                placeholder="Seu nome ou codinome espacial" 
-                className="w-full bg-space-dark text-white rounded-xl p-3 text-sm border border-gray-800 focus:outline-none focus:border-azul-tardis transition" 
-              />
-              <textarea 
-                placeholder="Escreva seu comentário... sem spoilers!" 
-                className="w-full bg-space-dark text-white rounded-xl p-3 text-sm h-28 resize-none border border-gray-800 focus:outline-none focus:border-azul-tardis transition" 
-              />
-              <button className="bg-azul-tardis text-white px-5 py-2.5 rounded-xl font-bold hover:bg-opacity-90 transition text-sm shadow-md">
-                Transmitir Comentário
-              </button>
-            </div>
-          </div>
-
-          <div className="space-y-4 w-full">
-            <div className="bg-space-dark/60 p-4 rounded-xl border border-gray-800/60 w-full">
-              <div className="flex justify-between items-center mb-2">
-                <h4 className="font-bold text-azul-tardis text-sm">Clara Oswald</h4>
-                <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-gray-400 font-mono">A Garota Impossível</span>
-              </div>
-              <p className="text-gray-300 text-xs sm:text-sm">
-                Incrível! Ler este arquivo me fez lembrar exatamente de quando corremos pelo vortex.
-              </p>
-            </div>
-
-            <div className="bg-space-dark/60 p-4 rounded-xl border border-gray-800/60 w-full">
-              <div className="flex justify-between items-center mb-2">
-                <h4 className="font-bold text-azul-tardis text-sm">River Song</h4>
-                <span className="text-[10px] bg-zinc-800 px-2 py-0.5 rounded text-gray-400 font-mono">Hello Sweetie</span>
-              </div>
-              <p className="text-gray-300 text-xs sm:text-sm">
-                Eu poderia dizer se o que está escrito aqui está 100% correto... mas isso seria spoiler. 😉
-              </p>
-            </div>
-          </div>
-        </section>
+        <CommentsSection 
+          postId={post._id} 
+          initialComments={post.comments || []} 
+        />
 
       </div>
     </main>

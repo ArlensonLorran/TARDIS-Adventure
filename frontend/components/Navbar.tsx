@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
-import { Search, LayoutDashboard, Home, X } from "lucide-react";
+// ADICIONADO: 'Menu' adicionado às importações do lucide-react
+import { Search, LayoutDashboard, Home, X, Menu } from "lucide-react";
 import LoginModal from "./LoginModal";
 
 export default function Navbar() {
@@ -21,7 +22,7 @@ export default function Navbar() {
 
     // Envia o usuário para a página inicial com o parâmetro de busca correspondente ao feed
     router.push(`/?q=${encodeURIComponent(search)}`);
-
+    
     setMenuOpen(false); // Fecha o menu lateral para mostrar o resultado
   };
 
@@ -29,8 +30,12 @@ export default function Navbar() {
     <>
       <header className="bg-azul-tardis w-full h-20 flex items-center justify-between px-6 sm:px-10 shadow-xl border-b border-blue-900 sticky top-0 z-50">
         <Link href="/" className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-galaxy to-azul-tardis flex items-center justify-center text-xl">
-            🚀
+          <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/10 flex items-center justify-center shadow-inner">
+            <img
+              src="/images/image.png"
+              alt="Logo do Blog"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <h2 className="font-bold text-xl sm:text-2xl text-white">Tardis Adventure</h2>
@@ -63,6 +68,7 @@ export default function Navbar() {
                 <ThemeToggle />
               </div>
 
+              {/* Busca */}
               {/* Busca */}
               <form onSubmit={handleSearchSubmit} className="relative">
                 <input

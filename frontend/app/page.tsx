@@ -48,7 +48,6 @@ export default async function Home({ searchParams }: HomeProps) {
   const postsRestantes = posts.slice(1);
 
   return (
-    // Removido bg-space-dark fixo para herdar o tema claro/escuro global
     <div className="min-h-screen w-full p-4 sm:p-6 md:p-10 overflow-x-hidden transition-colors duration-300">
       <div className="mx-auto">
         
@@ -78,7 +77,6 @@ export default async function Home({ searchParams }: HomeProps) {
               
               {postDestaque ? (
                 <Link href={`/post/${postDestaque._id}`} className="block group w-full">
-                  {/* Ajustado background para responder ao modo claro/escuro */}
                   <article className="bg-white dark:bg-space-light p-6 rounded-2xl shadow-xl border border-slate-200 dark:border-transparent group-hover:border-azul-tardis/50 transition duration-300 w-full overflow-hidden text-slate-900 dark:text-white">
                     <div className="relative overflow-hidden rounded-xl mb-6 bg-azul-tardis h-64 md:h-80 w-full">
                       {postDestaque.imageUrl && (
@@ -93,7 +91,7 @@ export default async function Home({ searchParams }: HomeProps) {
                       </span>
                     </div>
                     
-                    <h2 className="text-2xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white group-hover:text-blue-500 dark:group-hover:text-blue-400 transition leading-tight">
+                    <h2 className="text-2xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white group-hover:text-azul-tardis dark:group-hover:text-blue-400 transition leading-tight">
                       {postDestaque.title}
                     </h2>
                     <p className="text-slate-600 dark:text-gray-300 leading-relaxed line-clamp-3 md:line-clamp-4 text-sm md:text-base">
@@ -131,7 +129,6 @@ export default async function Home({ searchParams }: HomeProps) {
           <aside className="w-full space-y-8 lg:sticky lg:top-24">
             
             {/* BARRA DE PESQUISA (SCANNER DE DADOS) */}
-            {/* Envolvida em um formulário nativo para executar a busca ao pressionar enter */}
             <form 
               action="/" 
               method="GET"
@@ -141,12 +138,12 @@ export default async function Home({ searchParams }: HomeProps) {
               <div className="relative w-full">
                 <input
                   type="text"
-                  name="q" // O atributo name="q" faz o formulário colocar automaticamente ?q=... na URL
+                  name="q"
                   defaultValue={query || ""}
                   placeholder="Pesquisar arquivos da TARDIS..."
                   className="w-full bg-slate-50 dark:bg-space-dark text-slate-900 dark:text-white rounded-xl pl-4 pr-10 py-3 text-sm border border-slate-200 dark:border-gray-800 focus:outline-none focus:border-azul-tardis transition"
                 />
-                <button type="submit" className="absolute right-3 top-3 text-slate-400 hover:text-azul-tardis transition text-sm">
+                <button type="submit" className="absolute right-3 top-3.5 text-slate-400 hover:text-azul-tardis transition text-sm">
                   🔍
                 </button>
               </div>
